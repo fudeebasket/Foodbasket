@@ -16,7 +16,6 @@
       background-color: #fffaf0;
     }
 
-    /* Landing Page */
     .landing {
       height: 100vh;
       background: url('images/background.png') no-repeat center center/cover;
@@ -45,7 +44,6 @@
       text-decoration: none;
     }
 
-    /* Home Page */
     .home {
       display: none;
       padding: 2rem;
@@ -63,10 +61,20 @@
       margin-right: 1rem;
     }
 
-    .brand-title {
-      font-size: 1.5rem;
-      color: #222;
+    .category-buttons {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .category-buttons button {
+      background: #ffa500;
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      margin: 0.5rem;
+      border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .grid {
@@ -133,71 +141,94 @@
   </style>
 </head>
 <body>
-
-  <!-- Landing Page -->
   <section class="landing" id="landing">
     <h1>Welcome to Grocvia</h1>
     <p>Quick delivery of snacks, fast food, suya, wine & more.</p>
     <button class="get-started-btn" onclick="showHome()">Get Started</button>
   </section>
 
-  <!-- Home Page -->
   <section class="home" id="home">
     <header>
-  <img src="images/logo.png" alt="Grocvia Logo" class="logo">
-  <div>
-    <h1 style="font-size: 1.8rem; color: #111; margin-bottom: 0;">Grocvia</h1>
-    <p style="font-size: 0.95rem; color: #555;">Your instant gateway to delicious bites, grills & chilled drinks</p>
-  </div>
-</header>
+      <img src="images/logo.png" alt="Grocvia Logo" class="logo">
+      <div>
+        <h1 style="font-size: 1.8rem; color: #111; margin-bottom: 0;">Grocvia</h1>
+        <p style="font-size: 0.95rem; color: #555;">Your instant gateway to delicious bites, grills & chilled drinks</p>
+      </div>
+    </header>
 
+    <div class="category-buttons">
+      <button onclick="filterCategory('food')">Food</button>
+      <button onclick="filterCategory('snacks')">Snacks</button>
+      <button onclick="filterCategory('meat')">Meat</button>
+      <button onclick="filterCategory('fish')">Fish</button>
+      <button onclick="filterCategory('drinks')">Drinks</button>
+    </div>
 
-    <div class="grid">
-      <!-- Product 1 -->
-      <div class="product">
-        <img src="images/jollof.jpg" alt="Jollof Rice">
+    <div class="grid" id="product-grid">
+      <div class="product food">
+        <img src="images/white-rice.jpg" alt="White Rice">
         <div class="product-content">
-          <h2>Jollof Rice & Chicken</h2>
-          <p>Rice, tomato sauce, pepper, onions, grilled chicken.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Jollof%20Rice">Order Now</a>
+          <h2>White Rice</h2>
+          <p>Steamed white rice served with savory tomato stew and protein.</p>
+          <a class="order-btn" href="#">Order Now</a>
         </div>
       </div>
-
-      <!-- Product 2 -->
-      <div class="product">
-        <img src="images/suya.jpg" alt="Suya">
+      <div class="product food">
+        <img src="images/fried-rice.jpg" alt="Fried Rice">
         <div class="product-content">
-          <h2>Beef Suya</h2>
-          <p>Grilled spicy beef, suya pepper, onion & tomatoes.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Suya">Order Now</a>
+          <h2>Fried Rice</h2>
+          <p>Garnished with mixed vegetables and liver, served hot.</p>
+          <a class="order-btn" href="#">Order Now</a>
         </div>
       </div>
-
-      <!-- Product 3 -->
-      <div class="product">
+      <div class="product meat">
         <img src="images/peppersoup.jpg" alt="Pepper Soup">
         <div class="product-content">
           <h2>Pepper Soup</h2>
-          <p>Goat meat, native spices, scent leaves, pepper.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Pepper%20Soup">Order Now</a>
+          <p>Hot and spicy goat meat pepper soup with native herbs.</p>
+          <a class="order-btn" href="#">Order Now</a>
         </div>
       </div>
-
-      <!-- Add more products as needed -->
+      <div class="product meat">
+        <img src="images/suya.jpg" alt="Suya">
+        <div class="product-content">
+          <h2>Beef Suya</h2>
+          <p>Grilled spicy beef skewers with onions and suya spice.</p>
+          <a class="order-btn" href="#">Order Now</a>
+        </div>
+      </div>
+      <div class="product meat">
+        <img src="images/bbq-chicken.jpg" alt="BBQ Chicken">
+        <div class="product-content">
+          <h2>BBQ Chicken</h2>
+          <p>Smoked barbecue chicken with tangy sauce.</p>
+          <a class="order-btn" href="#">Order Now</a>
+        </div>
+      </div>
     </div>
 
     <footer>
-  <p>Need help or want something special? We're just a call or tap away!</p>
-  <p><strong>Call:</strong> 0903 554 4443 &nbsp; | &nbsp; <strong>WhatsApp:</strong> 0706 365 6159</p>
-  <p style="margin-top: 1rem; color: #999;">&copy; 2025 Grocvia. All rights reserved. Fast delivery. Tasty memories.</p>
-</footer>
-
+      <p>Need help or want something special? We're just a call or tap away!</p>
+      <p><strong>Call:</strong> 0903 554 4443 &nbsp; | &nbsp; <strong>WhatsApp:</strong> 0706 365 6159</p>
+      <p style="margin-top: 1rem; color: #999;">&copy; 2025 Grocvia. All rights reserved. Fast delivery. Tasty memories.</p>
+    </footer>
   </section>
 
   <script>
     function showHome() {
       document.getElementById('landing').style.display = 'none';
       document.getElementById('home').style.display = 'block';
+    }
+
+    function filterCategory(category) {
+      const allProducts = document.querySelectorAll('.product');
+      allProducts.forEach(product => {
+        if (product.classList.contains(category)) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
     }
   </script>
 </body>
