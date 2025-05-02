@@ -183,7 +183,7 @@
         <img src="images/jollof.jpg" alt="Jollof Rice">
         <div class="product-content">
           <h2>Jollof Rice & Chicken</h2>
-          <h2>₦4,500 + ₦1,500 delivery</h2>
+          <h2>₦4,500</h2>
           <p>Rice, tomato sauce, pepper, onions, grilled chicken.</p>
           <button class="order-btn" onclick="payWithPaystack('Jollof Rice & Chicken', 4500, 'I want to order Jollof Rice & Chicken')">Order Now</button>
         </div>
@@ -237,8 +237,8 @@
 
     function payWithPaystack(productName, amount, whatsappMessage) {
       var handler = PaystackPop.setup({
-        key: 'YOUR_PUBLIC_KEY',
-        email: 'customer@example.com',
+        key: 'pk_live_a8011ee92020415a8578c2aab921ff2aae209055',
+        email: 'grace0706365@gmail.com',
         amount: (amount + 1500) * 100,
         currency: "NGN",
         ref: 'GROCVIA-' + Math.floor((Math.random() * 1000000000) + 1),
