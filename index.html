@@ -17,7 +17,6 @@
       width: 100%;
     }
 
-    /* Landing Page */
     .landing {
       height: 100vh;
       background: url('images/background.png') no-repeat center center/cover;
@@ -47,7 +46,6 @@
       text-decoration: none;
     }
 
-    /* Home Page */
     .home {
       display: none;
       padding: 2rem;
@@ -143,6 +141,7 @@
       text-decoration: none;
       border-radius: 5px;
       margin-top: 0.5rem;
+      cursor: pointer;
     }
 
     footer {
@@ -155,15 +154,12 @@
   </style>
 </head>
 <body>
-
-  <!-- Landing Page -->
   <section class="landing" id="landing">
     <h1>Welcome to Grocvia</h1>
     <p>Quick delivery of snacks, fast food, suya, wine & more.</p>
     <button class="get-started-btn" onclick="showHome()">Get Started</button>
   </section>
 
-  <!-- Home Page -->
   <section class="home" id="home">
     <header>
       <img src="images/logo.png" alt="Grocvia Logo" class="logo">
@@ -183,40 +179,35 @@
     </div>
 
     <div class="grid" id="product-grid">
-      <!-- Product 1 -->
       <div class="product food">
         <img src="images/jollof.jpg" alt="Jollof Rice">
         <div class="product-content">
           <h2>Jollof Rice & Chicken</h2>
-          <h2>₦4,500</h2>
+          <h2>₦4,500 + ₦1,500 delivery</h2>
           <p>Rice, tomato sauce, pepper, onions, grilled chicken.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Jollof%20Rice">Order Now</a>
+          <button class="order-btn" onclick="payWithPaystack('Jollof Rice & Chicken', 4500, 'I want to order Jollof Rice & Chicken')">Order Now</button>
         </div>
       </div>
 
-      <!-- Product 2 -->
       <div class="product meat">
         <img src="images/suya.jpg" alt="Suya">
         <div class="product-content">
           <h2>Beef Suya</h2>
-          <h2>₦2,500</h2>
+          <h2>₦2,500 + ₦1,500 delivery</h2>
           <p>Grilled spicy beef, suya pepper, onion & tomatoes.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Suya">Order Now</a>
+          <button class="order-btn" onclick="payWithPaystack('Beef Suya', 2500, 'I want to order Beef Suya')">Order Now</button>
         </div>
       </div>
 
-      <!-- Product 3 -->
       <div class="product meat">
         <img src="images/peppersoup.jpg" alt="Pepper Soup">
         <div class="product-content">
           <h2>Pepper Soup</h2>
-          <h2>₦2,000</h2>
+          <h2>₦2,000 + ₦1,500 delivery</h2>
           <p>Goat meat, native spices, scent leaves, pepper.</p>
-          <a class="order-btn" href="https://wa.me/2347063656159?text=I%20want%20Pepper%20Soup">Order Now</a>
+          <button class="order-btn" onclick="payWithPaystack('Pepper Soup', 2000, 'I want to order Pepper Soup')">Order Now</button>
         </div>
       </div>
-
-      <!-- Add more products as needed -->
     </div>
 
     <footer>
@@ -226,6 +217,7 @@
     </footer>
   </section>
 
+  <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
     function showHome() {
       document.getElementById('landing').style.display = 'none';
@@ -235,14 +227,29 @@
     function filterCategory(category) {
       const products = document.querySelectorAll('.product');
       products.forEach(product => {
-        if (category === 'all') {
-          product.style.display = 'block';
-        } else if (product.classList.contains(category)) {
+        if (category === 'all' || product.classList.contains(category)) {
           product.style.display = 'block';
         } else {
           product.style.display = 'none';
         }
       });
+    }
+
+    function payWithPaystack(productName, amount, whatsappMessage) {
+      var handler = PaystackPop.setup({
+        key: 'YOUR_PUBLIC_KEY',
+        email: 'customer@example.com',
+        amount: (amount + 1500) * 100,
+        currency: "NGN",
+        ref: 'GROCVIA-' + Math.floor((Math.random() * 1000000000) + 1),
+        callback: function(response) {
+          window.location.href = `https://wa.me/2347063656159?text=${encodeURIComponent(whatsappMessage)}`;
+        },
+        onClose: function() {
+          alert('Transaction was not completed, please try again.');
+        }
+      });
+      handler.openIframe();
     }
   </script>
 </body>
