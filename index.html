@@ -5,162 +5,252 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Grocvia - Fast Food & Snacks</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .product {
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      max-width: 400px;
-      margin: 0 auto;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .product img {
+      background-color: #fffaf0;
       width: 100%;
-      border-radius: 8px;
     }
 
-    .product h2 {
-      margin: 10px 0;
-    }
-
-    .order-btn {
-      background: #ff6600;
+    .landing {
+      height: 100vh;
+      background: url('images/background.png') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       color: white;
-      padding: 10px 20px;
+      width: 100%;
+    }
+
+    .landing h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #ff9900;
+    }
+
+    .get-started-btn {
+      background: #ffa500;
+      padding: 1rem 2rem;
+      color: white;
       border: none;
       border-radius: 5px;
+      font-size: 1.2rem;
       cursor: pointer;
       text-decoration: none;
     }
 
-    .modal {
+    .home {
       display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.6);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
       padding: 2rem;
-      border-radius: 10px;
-      max-width: 500px;
-    }
-
-    .modal-content input,
-    .modal-content select {
       width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
     }
 
-    .close {
-      float: right;
+    header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #ffcc00;
+    }
+
+    .logo {
+      height: 50px;
+      margin-right: 1rem;
+    }
+
+    .brand-title {
       font-size: 1.5rem;
+      color: #222;
+      font-weight: bold;
+    }
+
+    .categories {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .categories button {
+      background: #ffa500;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      width: 100%;
+    }
+
+    .product {
+      background-color: white;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.02);
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-content {
+      padding: 1rem;
+      flex-grow: 1;
+    }
+
+    .product-content h2 {
+      font-size: 1.2rem;
+      color: #ff9900;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-content p {
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .order-btn {
+      display: inline-block;
+      background: #ff9900;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 3rem;
+      padding-bottom: 2rem;
     }
   </style>
 </head>
 <body>
+  <section class="landing" id="landing">
+    <h1>Welcome to Grocvia</h1>
+    <p>Quick delivery of snacks, fast food, suya, wine & more.</p>
+    <button class="get-started-btn" onclick="showHome()">Get Started</button>
+  </section>
 
-<!-- Product Section -->
-<div class="product">
-  <img src="https://via.placeholder.com/400x250" alt="Jollof Rice & Chicken">
-  <h2>Jollof Rice & Chicken</h2>
-  <p>₦4,500</p>
-  <a class="order-btn" href="#" onclick="openOrderModal('Jollof Rice & Chicken', 4500)">Order Now</a>
-</div>
+  <section class="home" id="home">
+    <header>
+      <img src="images/logo.png" alt="Grocvia Logo" class="logo">
+      <div>
+        <h1 style="font-size: 1.8rem; color: #111; margin-bottom: 0;">Grocvia</h1>
+        <p style="font-size: 0.95rem; color: #555;">Your instant gateway to delicious bites, grills & chilled drinks</p>
+      </div>
+    </header>
 
-<!-- Modal -->
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="document.getElementById('orderModal').style.display='none'">&times;</span>
-    <h2 id="productTitle">Order Item</h2>
-    <form id="orderForm">
-      <input type="number" id="quantity" placeholder="Quantity" min="1" required>
-      <input type="tel" id="phone" placeholder="Phone Number" required>
-      <input type="text" id="address" placeholder="Delivery Address" required>
-      <select id="location" onchange="calculateTotal()">
-        <option value="">Select Location</option>
-        <option value="Makurdi">Makurdi</option>
-        <option value="Gboko">Gboko</option>
-      </select>
-      <p id="unitPriceText">Unit Price: ₦0</p>
-      <p id="deliveryFeeText">Delivery Fee: ₦0</p>
-      <p id="totalPriceText">Total: ₦0</p>
-      <button type="button" onclick="proceedToPayment()">Proceed to Pay</button>
-    </form>
-  </div>
-</div>
+    <div class="categories">
+      <button onclick="filterCategory('all')">All</button>
+      <button onclick="filterCategory('food')">Food</button>
+      <button onclick="filterCategory('snacks')">Snacks</button>
+      <button onclick="filterCategory('meat')">Meat</button>
+      <button onclick="filterCategory('fish')">Fish</button>
+      <button onclick="filterCategory('drinks')">Drinks</button>
+    </div>
 
-<script>
-  let selectedPrice = 0;
+    <div class="grid" id="product-grid">
+      <div class="product food">
+        <img src="images/jollof.jpg" alt="Jollof Rice">
+        <div class="product-content">
+          <h2>Jollof Rice & Chicken</h2>
+          <h2>₦FREE+ ₦200 Delivery fees</h2>
+          <p>Rice, tomato sauce, pepper, onions, grilled chicken.</p>
+          <button class="order-btn" onclick="payWithPaystack('Jollof Rice & Chicken', 0, 'I want to order Jollof Rice & Chicken')">Order Now</button>
+        </div>
+      </div>
 
-  function openOrderModal(productName, price) {
-    document.getElementById('orderModal').style.display = 'block';
-    document.getElementById('productTitle').innerText = productName;
-    document.getElementById('unitPriceText').innerText = 'Unit Price: ₦' + price;
-    selectedPrice = price;
-    calculateTotal();
-  }
+      <div class="product meat">
+        <img src="images/suya.jpg" alt="Suya">
+        <div class="product-content">
+          <h2>Beef Suya</h2>
+          <h2>₦2,500 + ₦1,500 delivery</h2>
+          <p>Grilled spicy beef, suya pepper, onion & tomatoes.</p>
+          <button class="order-btn" onclick="payWithPaystack('Beef Suya', 2500, 'I want to order Beef Suya')">Order Now</button>
+        </div>
+      </div>
 
-  function calculateTotal() {
-    const quantity = parseInt(document.getElementById('quantity').value || 1);
-    const location = document.getElementById('location').value;
-    let delivery = 0;
-    if (location === 'Makurdi') delivery = 1500;
-    else if (location === 'Gboko') delivery = 1000;
-    const total = (selectedPrice * quantity) + delivery;
-    document.getElementById('deliveryFeeText').innerText = 'Delivery Fee: ₦' + delivery;
-    document.getElementById('totalPriceText').innerText = 'Total: ₦' + total;
-  }
+      <div class="product meat">
+        <img src="images/peppersoup.jpg" alt="Pepper Soup">
+        <div class="product-content">
+          <h2>Pepper Soup</h2>
+          <h2>₦2,000 + ₦1,500 delivery</h2>
+          <p>Goat meat, native spices, scent leaves, pepper.</p>
+          <button class="order-btn" onclick="payWithPaystack('Pepper Soup', 2000, 'I want to order Pepper Soup')">Order Now</button>
+        </div>
+      </div>
+    </div>
 
-  document.getElementById('quantity').addEventListener('input', calculateTotal);
-  document.getElementById('location').addEventListener('change', calculateTotal);
+    <footer>
+      <p>Need help or want something special? We're just a call or tap away!</p>
+      <p><strong>Call:</strong> 0903 554 4443 &nbsp; | &nbsp; <strong>WhatsApp:</strong> 0706 365 6159</p>
+      <p style="margin-top: 1rem; color: #999;">&copy; 2025 Grocvia. All rights reserved. Fast delivery. Tasty memories.</p>
+    </footer>
+  </section>
 
-  function proceedToPayment() {
-    const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-    const quantity = document.getElementById('quantity').value;
-    const location = document.getElementById('location').value;
-    const total = parseInt(document.getElementById('totalPriceText').innerText.replace('Total: ₦', ''));
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    function showHome() {
+      document.getElementById('landing').style.display = 'none';
+      document.getElementById('home').style.display = 'block';
+    }
 
-    const handler = PaystackPop.setup({
-      key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx', // Replace with your actual key
-      email: phone + '@grocvia.com',
-      amount: total * 100,
-      currency: 'NGN',
-      metadata: {
-        custom_fields: [
-          { display_name: "Phone", variable_name: "phone", value: phone },
-          { display_name: "Address", variable_name: "address", value: address },
-          { display_name: "Location", variable_name: "location", value: location }
-        ]
-      },
-      callback: function(response) {
-        window.location.href = `https://wa.me/2347063656159?text=Payment successful. Order: ${quantity} unit(s) of ${document.getElementById('productTitle').innerText}, Address: ${address}, Location: ${location}, Phone: ${phone}`;
-      },
-      onClose: function() {
-        alert('Payment window closed.');
-      }
-    });
-    handler.openIframe();
-  }
-</script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
+    function filterCategory(category) {
+      const products = document.querySelectorAll('.product');
+      products.forEach(product => {
+        if (category === 'all' || product.classList.contains(category)) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    }
+
+    function payWithPaystack(productName, amount, whatsappMessage) {
+      var handler = PaystackPop.setup({
+        key: 'pk_live_a8011ee92020415a8578c2aab921ff2aae209055',
+        email: 'grace0706365@gmail.com',
+        amount: (amount + 200) * 100,
+        currency: "NGN",
+        ref: 'GROCVIA-' + Math.floor((Math.random() * 1000000000) + 1),
+        callback: function(response) {
+          window.location.href = `https://wa.me/2347063656159?text=${encodeURIComponent(whatsappMessage)}`;
+        },
+        onClose: function() {
+          alert('Transaction was not completed, please try again.');
+        }
+      });
+      handler.openIframe();
+    }
+  </script>
 </body>
 </html>
