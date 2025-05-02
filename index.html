@@ -205,12 +205,14 @@
 
   <section class="home" id="home">
     <header>
-      <img src="images/logo.png" alt="Grocvia Logo" class="logo">
-      <div>
-        <h1 style="font-size: 1.8rem; color: #111; margin-bottom: 0;">Grocvia</h1>
-        <p style="font-size: 0.95rem; color: #555;">Your instant gateway to delicious bites, grills & chilled drinks</p>
-      </div>
-    </header>
+  <img src="images/logo.png" alt="Grocvia Logo" class="logo">
+  <div style="flex-grow: 1;">
+    <h1 style="font-size: 1.8rem; color: #111; margin-bottom: 0;">Grocvia</h1>
+    <p style="font-size: 0.95rem; color: #555;">Your instant gateway to delicious bites, grills & chilled drinks</p>
+  </div>
+  <button onclick="goToLanding()" style="background:#ff9900;color:white;border:none;padding:0.5rem 1rem;border-radius:5px;cursor:pointer;">Home</button>
+</header>
+
 
     <div class="categories">
       <button onclick="filterCategory('all')">All</button>
@@ -265,6 +267,12 @@
     function showHome() {
       document.getElementById('landing').style.display = 'none';
       document.getElementById('home').style.display = 'block';
+
+      ById('landing').style.display = 'flex';
+}
+function goToLanding() {
+  document.getElementById('home').style.display = 'none';
+  document.getElement
     }
 
     function filterCategory(category) {
