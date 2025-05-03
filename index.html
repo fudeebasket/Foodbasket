@@ -151,6 +151,19 @@
       margin-top: 3rem;
       padding-bottom: 2rem;
     }
+    .order-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
   </style>
 </head>
 <body>
@@ -209,7 +222,7 @@
         </div>
       </div>
     </div>
-<div id="order-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+<div id="order-modal" class="order-modal">
   <div style="background:white; padding:2rem; border-radius:10px; max-width:400px; width:100%; box-shadow:0 0 15px rgba(0,0,0,0.2);">
     <h3 style="margin-bottom:1rem;">Complete Your Order</h3>
     <label>Quantity:</label>
