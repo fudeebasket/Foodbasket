@@ -209,6 +209,29 @@
         </div>
       </div>
     </div>
+<div id="order-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+  <div style="background:white; padding:2rem; border-radius:10px; max-width:400px; width:100%; box-shadow:0 0 15px rgba(0,0,0,0.2);">
+    <h3 style="margin-bottom:1rem;">Complete Your Order</h3>
+    <label>Quantity:</label>
+    <input id="quantity" type="number" min="1" value="1" style="width:100%; margin-bottom:1rem;" />
+    
+    <label>Phone Number:</label>
+    <input id="phone" type="tel" placeholder="e.g. 08012345678" style="width:100%; margin-bottom:1rem;" />
+    
+    <label>Delivery Address:</label>
+    <input id="address" type="text" placeholder="Street, area" style="width:100%; margin-bottom:1rem;" />
+    
+    <label>Location:</label>
+    <select id="location" style="width:100%; margin-bottom:1rem;">
+      <option value="">Select</option>
+      <option value="Makurdi">Makurdi (₦1,000)</option>
+      <option value="Gboko">Gboko (₦1,500)</option>
+    </select>
+
+    <button onclick="submitOrder()" style="background:#ff9900; color:white; padding:0.7rem 1.2rem; border:none; border-radius:5px;">Pay Now</button>
+    <button onclick="closeModal()" style="margin-left:10px; background:#ccc; padding:0.7rem 1rem; border:none; border-radius:5px;">Cancel</button>
+  </div>
+</div>
 
     <footer>
       <p>Need help or want something special? We're just a call or tap away!</p>
@@ -235,19 +258,51 @@
       });
     }
 
-    function payWithPaystack(productName, amount, whatsappMessage) {
-      var handler = PaystackPop.setup({
-        key: 'pk_live_a8011ee92020415a8578c2aab921ff2aae209055',
-        email: 'grace0706365@gmail.com',
-        amount: (amount + 200) * 100,
-        currency: "NGN",
-        ref: 'GROCVIA-' + Math.floor((Math.random() * 1000000000) + 1),
-        callback: function(response) {
-          window.location.href = `https://wa.me/2347063656159?text=${encodeURIComponent(whatsappMessage)}`;
-        },
-        onClose: function() {
-          alert('Transaction was not completed, please try again.');
-        }
+    
+  let selectedProduct = {};
+  
+  function payWithPaystack(productName, amount, whatsappMessage) {
+    selectedProduct = { name: productName, amount: amount, message: whatsappMessage };
+    document.getElementById('order-modal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('order-modal').style.display = 'none';
+  }
+
+  function submitOrder() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const location = document.getElementById('location').value;
+
+    if (!quantity || !phone || !address || !location) {
+      alert("Please fill out all fields");
+      return;
+    }
+
+    const deliveryFee = location === 'Makurdi' ? 1000 : 1500;
+    const total = (selectedProduct.amount * quantity) + deliveryFee;
+    const message = `${selectedProduct.message} | Qty: ${quantity} | Phone: ${phone} | Address: ${address} | Location: ${location}`;
+
+    var handler = PaystackPop.setup({
+      key: 'pk_live_a8011ee92020415a8578c2aab921ff2aae209055',
+      email: 'grace0706365@gmail.com',
+      amount: total * 100,
+      currency: "NGN",
+      ref: 'GROCVIA-' + Math.floor((Math.random() * 1000000000) + 1),
+      callback: function(response) {
+        window.location.href = `https://wa.me/2347063656159?text=${encodeURIComponent(message)}`;
+      },
+      onClose: function() {
+        alert('Transaction was not completed, please try again.');
+      }
+    });
+    handler.openIframe();
+    closeModal();
+  }
+
+
       });
       handler.openIframe();
     }
