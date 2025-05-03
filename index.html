@@ -262,9 +262,11 @@
   let selectedProduct = {};
   
   function payWithPaystack(productName, amount, whatsappMessage) {
-    selectedProduct = { name: productName, amount: amount, message: whatsappMessage };
-    document.getElementById('order-modal').style.display = 'block';
-  }
+  selectedProduct = { name: productName, amount: amount, message: whatsappMessage };
+  const modal = document.getElementById('order-modal');
+  modal.style.display = 'flex'; // set to flex to center it properly
+}
+
 
   function closeModal() {
     document.getElementById('order-modal').style.display = 'none';
